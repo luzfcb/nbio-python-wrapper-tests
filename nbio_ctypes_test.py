@@ -1,4 +1,7 @@
 # -*- coding:utf-8 -*-
+import platform
+import sys
+import os
 import ctypes
 # http://stackoverflow.com/questions/8638942/python-ctypes-pointer-to-pointer-to-structure
 # http://stackoverflow.com/questions/3131854/how-to-return-a-pointer-to-a-structure-in-ctypes
@@ -10,6 +13,43 @@ import ctypes
 # http://stackoverflow.com/questions/1871375/python-ctypes-initializing-c-char-p
 # http://eli.thegreenplace.net/2008/08/31/ctypes-calling-cc-code-from-python/
 # http://stackoverflow.com/questions/12712585/readprocessmemory-with-ctypes
+
+
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+LIB_LINUX_X86 = os.path.join(CURRENT_DIR, 'libs', 'linux_x86', 'libNBioBSP.so')
+LIB_LINUX_X86_X64 = os.path.join(CURRENT_DIR, 'libs', 'linux_x86_x64', 'libNBioBSP.so')
+LIB_WIN32 = os.path.join(CURRENT_DIR, 'libs', 'win32', 'NBioBSP.dll')
+#LIB_WIN64 = os.path.join(CURRENT_DIR, 'libs', 'win64', 'NBioBSP.dll')
+
+print(CURRENT_DIR)
+print(LIB_LINUX_X86)
+print(LIB_LINUX_X86_X64)
+print(LIB_WIN32)
+
+lib = None
+
+PLATFORM_SYSTEM = platform.system()
+PLATFORM_ARCHITECTURE = platform.architecture()[0]
+print(PLATFORM_SYSTEM)
+print(PLATFORM_ARCHITECTURE)
+
+is_64bits = sys.maxsize > 2**32
+
+if '64' in PLATFORM_ARCHITECTURE and 'Linux' in PLATFORM_SYSTEM:
+    lib = ctypes.CDLL(LIB_LINUX_X86_X64)
+elif '32' in PLATFORM_ARCHITECTURE and 'Linux' in PLATFORM_SYSTEM:
+    ctypes.CDLL(LIB_LINUX_X86)
+
+if '64' in PLATFORM_ARCHITECTURE and 'Windows' in PLATFORM_SYSTEM:
+    #lib = ctypes.CDLL(LIB_WIN64)
+    pass
+elif '32' in PLATFORM_ARCHITECTURE and 'Windows' in PLATFORM_SYSTEM:
+    ctypes.CDLL(LIB_WIN32)
+
+print(lib)
+
+
+
 
 
 # NBioAPI_SINT = 'int'
@@ -205,3 +245,8 @@ class NBioAPI_DEVICE_INFO_EX(ctypes.Structure):
 NBioAPI_DEVICE_INFO_EX_PTR = ctypes.POINTER(NBioAPI_DEVICE_INFO_EX)
 NBioAPI_DEVICE_INFO_EX_PTR_TO_PTR = ctypes.POINTER(ctypes.POINTER(NBioAPI_DEVICE_INFO_EX))
 
+lib.NBioAPI_Init.restype = NBioAPI_RETURN
+print(lib.NBioAPI_Init())
+lib.NBioAPI_GetVersion.restype = NBioAPI_RETURN
+
+print(lib.NBioAPI_GetVersion())
