@@ -3,6 +3,7 @@ import platform
 import sys
 import os
 import ctypes
+# http://tungwaiyip.info/blog/2009/07/16/ctype_performance_benchmark
 # http://stackoverflow.com/questions/8638942/python-ctypes-pointer-to-pointer-to-structure
 # http://stackoverflow.com/questions/3131854/how-to-return-a-pointer-to-a-structure-in-ctypes
 # http://stackoverflow.com/questions/4351721/python-ctypes-passing-a-struct-to-a-function-as-a-pointer-to-get-back-data
