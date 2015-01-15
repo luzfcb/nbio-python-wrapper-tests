@@ -35,3 +35,4 @@ simple run `nbio_ctypes_test.py`
 
 http://unix.stackexchange.com/questions/72437/how-to-grant-non-root-user-access-to-device-files
 http://unix.stackexchange.com/questions/111593/allow-non-root-user-to-read-write-dev-files
+http://unix.stackexchange.com/questions/44308/understanding-udev-rules-and-permissions-in-libusb
