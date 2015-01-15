@@ -23,6 +23,9 @@ Run `nbio_pybindgen_wrapper_generate_test.py.py`
 
 `python nbio_pybindgen_wrapper_generate_test.py.py`
 
+
+http://unix.stackexchange.com/questions/72437/how-to-grant-non-root-user-access-to-device-files
+
 ## Second approach-Using pure ctypes
 
 ### Usage
